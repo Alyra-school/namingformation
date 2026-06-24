@@ -21,6 +21,16 @@ const leftHeaderLabels = [
   "Cas d'usage IA (Outils IA)",
 ]
 
+function FooterLink() {
+  return (
+    <footer className="site-footer">
+      <p>
+        Tous droits reserves Alyra. <Link to="/resultats">Consulter les retours</Link>
+      </p>
+    </footer>
+  )
+}
+
 function FormPage() {
   const [name, setName] = useState('')
   const [ideas, setIdeas] = useState(() => Array(IDEAS_COUNT).fill(''))
@@ -152,6 +162,8 @@ function FormPage() {
           {isSubmitting ? 'envoi...' : 'envoyer'}
         </button>
       </form>
+
+      <FooterLink />
     </main>
   )
 }
@@ -269,6 +281,8 @@ function ResultsPage() {
           </section>
         ) : null}
       </section>
+
+      <FooterLink />
     </main>
   )
 }
