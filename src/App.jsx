@@ -234,6 +234,7 @@ function ResultsPage() {
         {!loading && !error && opinions.length > 0 ? (
           <section className="matrix-wrap" aria-label="Matrice des resultats">
             <div className="matrix-top">
+              <div className="top-spacer" aria-hidden="true"></div>
               {topHeaderLabels.map((label, colIndex) => (
                 <div key={label} className="head-block results-block">
                   <div className="head-label">{label}</div>
