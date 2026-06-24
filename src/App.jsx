@@ -21,16 +21,6 @@ const leftHeaderLabels = [
   "Cas d'usage IA (Outils IA)",
 ]
 
-function FooterLink() {
-  return (
-    <footer className="site-footer">
-      <p>
-        Tous droits reserves Alyra. <Link to="/resultats">Consulter les retours</Link>
-      </p>
-    </footer>
-  )
-}
-
 function FormPage() {
   const [name, setName] = useState('')
   const [ideas, setIdeas] = useState(() => Array(IDEAS_COUNT).fill(''))
@@ -162,8 +152,6 @@ function FormPage() {
           {isSubmitting ? 'envoi...' : 'envoyer'}
         </button>
       </form>
-
-      <FooterLink />
     </main>
   )
 }
@@ -174,12 +162,21 @@ function ResultsPage() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    async function loadOpinions() {
-      setLoading(true)
+    let isMounted = true
+
+    async function loadOpinions(showLoader = false) {
+      if (showLoader && isMounted) {
+        setLoading(true)
+      }
+
       const { data, error: selectError } = await supabase
         .from('opinions')
         .select('id, name, ideas, created_at')
         .order('created_at', { ascending: false })
+
+      if (!isMounted) {
+        return
+      }
 
       if (selectError) {
         setError('Impossible de charger les resultats.')
@@ -187,11 +184,27 @@ function ResultsPage() {
         return
       }
 
+      setError('')
       setOpinions(data ?? [])
       setLoading(false)
     }
 
-    loadOpinions()
+    const refreshIfVisible = () => {
+      if (document.visibilityState === 'visible') {
+        loadOpinions()
+      }
+    }
+
+    loadOpinions(true)
+
+    const intervalId = window.setInterval(refreshIfVisible, 10000)
+    document.addEventListener('visibilitychange', refreshIfVisible)
+
+    return () => {
+      isMounted = false
+      window.clearInterval(intervalId)
+      document.removeEventListener('visibilitychange', refreshIfVisible)
+    }
   }, [])
 
   const fieldOpinions = useMemo(() => {
@@ -281,8 +294,6 @@ function ResultsPage() {
           </section>
         ) : null}
       </section>
-
-      <FooterLink />
     </main>
   )
 }
