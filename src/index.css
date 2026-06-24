@@ -36,6 +36,18 @@ body {
   text-transform: lowercase;
 }
 
+.title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-logo {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+}
+
 .topbar a {
   color: #0c5d2d;
   text-decoration: none;

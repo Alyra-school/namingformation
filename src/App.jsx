@@ -21,7 +21,15 @@ const leftHeaderLabels = [
   "Cas d'usage IA (Outils IA)",
 ]
 
+function useDocumentTitle(title) {
+  useEffect(() => {
+    document.title = title
+  }, [title])
+}
+
 function FormPage() {
+  useDocumentTitle('Naming Alyra')
+
   const [name, setName] = useState('')
   const [ideas, setIdeas] = useState(() => Array(IDEAS_COUNT).fill(''))
   const [error, setError] = useState('')
@@ -80,7 +88,10 @@ function FormPage() {
   return (
     <main className="page">
       <header className="topbar">
-        <h1>naming alyra</h1>
+        <div className="title-group">
+          <img src="/alyra-logo.png" alt="Logo Alyra" className="title-logo" />
+          <h1>naming alyra</h1>
+        </div>
       </header>
 
       <form onSubmit={onSubmit} className="form-card">
@@ -157,6 +168,8 @@ function FormPage() {
 }
 
 function ResultsPage() {
+  useDocumentTitle('Resultats Naming Alyra')
+
   const [opinions, setOpinions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -222,7 +235,10 @@ function ResultsPage() {
   return (
     <main className="page">
       <header className="topbar">
-        <h1>Resultats naming alyra</h1>
+        <div className="title-group">
+          <img src="/alyra-logo.png" alt="Logo Alyra" className="title-logo" />
+          <h1>Resultats naming alyra</h1>
+        </div>
         <Link to="/">Retour au formulaire</Link>
       </header>
 
