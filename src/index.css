@@ -88,10 +88,10 @@ body {
 
 .matrix-top {
   display: grid;
-  grid-template-columns: 160px repeat(4, 185px);
+  grid-template-columns: 160px repeat(4, 250px);
   gap: 14px;
   margin-bottom: 14px;
-  min-width: 956px;
+  min-width: 1216px;
   width: max-content;
 }
 
@@ -102,7 +102,7 @@ body {
 .head-block,
 .side-block {
   background: #231d63;
-  border-radius: 28px;
+  border-radius: 6px;
   color: #eef2ff;
   min-height: 112px;
   display: flex;
@@ -125,16 +125,16 @@ body {
 
 .matrix-row {
   display: grid;
-  grid-template-columns: 160px repeat(4, 185px);
+  grid-template-columns: 160px repeat(4, 250px);
   gap: 14px;
   align-items: stretch;
-  min-width: 956px;
+  min-width: 1216px;
   width: max-content;
 }
 
 .cell-block {
   min-height: 112px;
-  border-radius: 28px;
+  border-radius: 6px;
   background: rgba(112, 103, 255, 0.55);
   display: flex;
   align-items: center;
@@ -144,16 +144,19 @@ body {
 
 .pill-input {
   width: 100%;
-  max-width: 150px;
+  max-width: 100%;
   border: 0;
   outline: none;
-  border-radius: 999px;
+  border-radius: 6px;
   background: #a7e8cd;
   padding: 8px 12px;
   font-size: 12px;
-  text-align: center;
+  text-align: left;
   color: #10281e;
   margin: 0 auto;
+  min-height: 76px;
+  resize: vertical;
+  font: inherit;
 }
 
 .pill-input::placeholder {
@@ -182,7 +185,7 @@ body {
 .opinion-pill,
 .empty-opinion {
   margin: 0;
-  border-radius: 999px;
+  border-radius: 4px;
   background: #a7e8cd;
   color: #10281e;
   font-size: 12px;

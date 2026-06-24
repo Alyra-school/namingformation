@@ -85,6 +85,22 @@ function FormPage() {
     setIdeas(Array(IDEAS_COUNT).fill(''))
   }
 
+  const onFormKeyDown = (event) => {
+    if (event.key !== 'Enter') {
+      return
+    }
+
+    const target = event.target
+    if (
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLButtonElement
+    ) {
+      return
+    }
+
+    event.preventDefault()
+  }
+
   return (
     <main className="page">
       <header className="topbar">
@@ -94,7 +110,7 @@ function FormPage() {
         </div>
       </header>
 
-      <form onSubmit={onSubmit} className="form-card">
+      <form onSubmit={onSubmit} onKeyDown={onFormKeyDown} className="form-card">
         <label htmlFor="name">Nom</label>
         <input
           id="name"
@@ -110,26 +126,24 @@ function FormPage() {
           <div className="matrix-top">
             <div className="top-spacer" aria-hidden="true"></div>
             {topHeaderLabels.map((label, colIndex) => (
-              <div key={label} className="head-block">
-                <div className="head-label">{label}</div>
-                <input
-                  type="text"
-                  className="pill-input"
-                  value={ideas[colIndex]}
-                  onChange={(e) => onIdeaChange(colIndex, e.target.value)}
-                  placeholder="..."
-                />
-              </div>
-            ))}
-          </div>
+                <div key={label} className="head-block">
+                  <div className="head-label">{label}</div>
+                  <textarea
+                    className="pill-input"
+                    value={ideas[colIndex]}
+                    onChange={(e) => onIdeaChange(colIndex, e.target.value)}
+                    placeholder="..."
+                  />
+                </div>
+              ))}
+            </div>
 
           <div className="matrix-body">
             {Array.from({ length: ROW_COUNT }).map((_, rowIndex) => (
               <div key={rowIndex} className="matrix-row">
                 <div className="side-block">
                   <div className="side-label">{leftHeaderLabels[rowIndex]}</div>
-                  <input
-                    type="text"
+                  <textarea
                     className="pill-input"
                     value={ideas[4 + rowIndex]}
                     onChange={(e) => onIdeaChange(4 + rowIndex, e.target.value)}
@@ -141,8 +155,7 @@ function FormPage() {
                   const index = 10 + rowIndex * COLUMN_COUNT + colIndex
                   return (
                     <div key={`${rowIndex}-${colIndex}`} className="cell-block">
-                      <input
-                        type="text"
+                      <textarea
                         className="pill-input"
                         value={ideas[index]}
                         onChange={(e) => onIdeaChange(index, e.target.value)}
